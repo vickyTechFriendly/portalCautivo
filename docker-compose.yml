@@ -1,0 +1,48 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5436:5432"
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:23.0.6
+    env_file:
+      - .env
+    environment:
+      - DB_VENDOR=POSTGRES
+      - DB_ADDR=postgres
+      - DB_DATABASE=keycloak
+      - DB_USER=keycloak
+      - DB_PASSWORD=${POSTGRES_PASSWORD}
+      - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
+      - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_PASSWORD}
+    command: ["start-dev"]
+    volumes:
+      - ./keycloak/temas/mytheme:/opt/keycloak/themes/mytheme
+    ports:
+      - "9010:8080"
+    depends_on:
+      - postgres
+
+  node-app:
+    env_file:
+      - .env
+    build:
+      context: ./node-app
+    environment:
+      - DATABASE_URL=postgresql://keycloak:${POSTGRES_PASSWORD}@postgres/keycloak
+      - KEYCLOAK_URL=http://keycloak:8080
+    ports:
+      - "3010:3000"
+    depends_on:
+      - keycloak
+
+volumes:
+  postgres_data:
