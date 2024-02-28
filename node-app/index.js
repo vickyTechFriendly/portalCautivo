@@ -3,6 +3,8 @@ const express = require('express');
 const session = require('express-session');
 const Keycloak = require('keycloak-connect');
 const pgSession = require ('connect-pg-simple')(session);
+/* const https = require('https');
+const fs = require('fs'); */
 
 const pgPool = require('pg').Pool;
 
@@ -25,11 +27,11 @@ app.use(session({
   secret: process.env.secretcookie,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }  
+  cookie: { secure: false } 
 }));
 
-const autenticarEnControladorWiFi = async (req, res, next) => {
-  // Ejemplo de datos para hacer el POST
+//Configurar aquí la petición al controlador WiFi
+const PostControladorWiFi = async (req, res, next) => {
   const postData = {
     title: 'foo',
     body: 'bar',
@@ -38,7 +40,6 @@ const autenticarEnControladorWiFi = async (req, res, next) => {
 
   try {
     const response = await axios.post('https://jsonplaceholder.typicode.com/posts', postData);
-    // Muestra en la consola la respuesta para verificar
     console.log('Respuesta del controlador WiFi:', response.data);
     next(); 
   } catch (error) {
@@ -47,22 +48,14 @@ const autenticarEnControladorWiFi = async (req, res, next) => {
   }
 };
 
-// Configura la sesión
-app.use(session({
-  secret: process.env.secretcookie,
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false } // Para desarrollo, en producción debería ser true
-}));
-
-// Configuración de Keycloak
+//Configurar después de haber configurado en la consola de Keycloak el cliente y el realm
 const keycloakConfig = {
-  clientId: 'SANXENXO_WIFI',
+  clientId:'SANXENXO_WIFI',
   bearerOnly: false,
-  serverUrl: 'http://localhost:9010',
-  realm: 'Concello_de_Sanxenxo',
+  serverUrl:'http://172.17.0.1:9010', // URL del servidor Keycloak
+  realm:'Concello_de_Sanxenxo',
   credentials: {
-    secret: 'Hy9PX1dl5hcR3UDJrM1mAAdLUpQSQUxV'
+    secret:'0WvDLBoXTTyBVbN2JexaI5JvJnp3fGed'
   }
 };
 
@@ -73,17 +66,23 @@ app.use(keycloak.middleware({
   admin: '/',
 }));
 
-// Rutas
-app.get('/', (req, res) => {
-  res.send('Página Principal - No protegida');
-});
-
-app.get('/protected', keycloak.protect(), autenticarEnControladorWiFi, (req, res) => {
+app.get('/', keycloak.protect(), PostControladorWiFi, (req, res) => {
   res.send('Página Protegida - Si estás viendo esto, estás autenticado');
 });
 
-// Iniciar el servidor
+/* // Código para iniciar el servidor con HTTPS en produ
+const httpsOptions = {
+  key: fs.readFileSync('/ruta/a/tu/llave-privada.key'),
+  cert: fs.readFileSync('/ruta/a/tu/certificado.crt')
+}; */
+
+//Cambiar el puerto a 443 en producción (o según sea necesario)
 const port = 3000;
+
+/* https.createServer(httpsOptions, app).listen(port, () => {
+  console.log(`Servidor escuchando en https://tu-dominio.com:${port}`); //dominio puerto wifi
+}); */
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });

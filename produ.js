@@ -64,5 +64,5 @@ const httpsOptions = {
 const port = 3000;
 
 https.createServer(httpsOptions, app).listen(port, () => {
-  console.log(`Servidor escuchando en https://tu-dominio.com:${port}`);
+  console.log(`Servidor escuchando en https://tu-dominio.com:${port}`); //dominio puerto wifi
 });

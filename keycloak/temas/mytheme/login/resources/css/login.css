@@ -4,6 +4,10 @@
 .login-pf {
     background: none;
 }
+a {
+	color: #fff;
+	text-decoration: none;
+}
 
 .login-pf body {
     background: url("../img/keycloak-bg.png") no-repeat center center fixed;
@@ -14,6 +18,18 @@
 textarea.pf-c-form-control {
 	height: auto;
     background-color: #133b4d;
+    --pf-c-form-control--BorderRadius: 5px;
+}
+.fa {
+    color:#fff;
+}
+
+.pf-c-input-group {
+    --pf-c-input-group--BackgroundColor: none;
+}
+
+.pf-c-form__label-text {
+    color: #fff;
 }
 
 .pf-c-alert__title {
@@ -25,7 +41,16 @@ p.instruction {
 }
 
 .pf-c-button.pf-m-control {
-    border-color: rgba(230, 230, 230, 0.5);
+    --pf-c-button--after--BorderColor: #227aae; 
+    background-color: #227aae;
+    --pf-c-button--BorderRadius: 5px;
+    --pf-c-button--after--BorderWidth: 0px;
+}
+
+.pf-c-button.pf-m-primary {
+	color: var(--pf-c-button--m-primary--Color);
+	background-color: #227aae;
+    border-radius: 5px;
 }
 
 h1#kc-page-title {
@@ -50,7 +75,6 @@ h1#kc-page-title {
 }
 
 #kc-locale-dropdown a {
-    color: var(--pf-global--Color--200);
     text-align: right;
     font-size: var(--pf-global--FontSize--sm);
 }
@@ -62,10 +86,6 @@ a#kc-current-locale-link::after {
 
 .login-pf .container {
     padding-top: 40px;
-}
-
-.login-pf a:hover {
-    color: #0099d3;
 }
 
 #kc-logo {
@@ -273,13 +293,14 @@ ul#kc-totp-supported-apps {
 }
 
 .kc-social-gray {
-    color: var(--pf-global--Color--200);
+    color: #ffffff;
 }
 
 .kc-social-item {
     margin-bottom: var(--pf-global--spacer--sm);
     font-size: 15px;
     text-align: center;
+    background-color: #227aae;
 }
 
 .kc-social-provider-name {
@@ -288,6 +309,8 @@ ul#kc-totp-supported-apps {
 
 .kc-social-icon-text {
     left: -15px;
+    color: #fff;
+    border-radius: 5px;
 }
 
 .kc-social-grid {
@@ -312,7 +335,7 @@ ul#kc-totp-supported-apps {
 }
 
 .kc-social-section hr{
-    margin-bottom: 10px
+    margin-bottom: 10px;
 }
 
 .kc-login-tooltip .kc-tooltip-text{
@@ -478,7 +501,7 @@ ul#kc-totp-supported-apps {
 
 .select-auth-box-headline {
     font-size: var(--pf-global--FontSize--md);
-    color: var(--pf-global--primary-color--100);
+    color: var(--pf-global--primary-color--200);
     font-weight: bold;
 }
 
@@ -498,7 +521,7 @@ ul#kc-totp-supported-apps {
     padding: 0 20px;
     max-width: 500px;
     border-top: 4px solid;
-    border-color: var(--pf-global--primary-color--100);
+    border-color: var(--pf-global--primary-color--200);
     background-color: #133b4d;
     border-radius: 20px;
 }

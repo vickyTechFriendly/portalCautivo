@@ -1,13 +1,13 @@
 version: "3.8"
 services:
   postgres:
-    image: postgres:latest
+    image: postgres:14.11
     volumes:
       - ./init-scripts:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     ports:
       - "5436:5432"
@@ -17,10 +17,10 @@ services:
     env_file:
       - .env
     environment:
-      - DB_VENDOR=POSTGRES
-      - DB_ADDR=postgres
-      - DB_DATABASE=keycloak
-      - DB_USER=keycloak
+      - DB_VENDOR=${DB_VENDOR}
+      - DB_ADDR=${DB_ADDR}
+      - DB_DATABASE=${POSTGRES_DB}
+      - DB_USER=${POSTGRES_USER}
       - DB_PASSWORD=${POSTGRES_PASSWORD}
       - KEYCLOAK_ADMIN=${KEYCLOAK_ADMIN}
       - KEYCLOAK_ADMIN_PASSWORD=${KEYCLOAK_PASSWORD}
