@@ -28,8 +28,6 @@ app.use(session({
   cookie: { secure: false }  
 }));
 
-
-
 const autenticarEnControladorWiFi = async (req, res, next) => {
   // Ejemplo de datos para hacer el POST
   const postData = {
