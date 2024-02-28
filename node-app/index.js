@@ -27,7 +27,7 @@ app.use(session({
   secret: process.env.secretcookie,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } 
+  cookie: { secure: true } 
 }));
 
 //Configurar aquí la petición al controlador WiFi
@@ -50,12 +50,12 @@ const PostControladorWiFi = async (req, res, next) => {
 
 //Configurar después de haber configurado en la consola de Keycloak el cliente y el realm
 const keycloakConfig = {
-  clientId:'SANXENXO_WIFI',
+  clientId:process.env.clientId,
   bearerOnly: false,
   serverUrl:'http://172.17.0.1:9010', // URL del servidor Keycloak
-  realm:'Concello_de_Sanxenxo',
+  realm:process.env.realm,
   credentials: {
-    secret:'0WvDLBoXTTyBVbN2JexaI5JvJnp3fGed'
+    secret: process.env.secret
   }
 };
 
