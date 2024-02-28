@@ -3,6 +3,7 @@ services:
   postgres:
     image: postgres:latest
     volumes:
+      - ./init-scripts:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: keycloak

@@ -13,6 +13,7 @@
 
 textarea.pf-c-form-control {
 	height: auto;
+    background-color: #133b4d;
 }
 
 .pf-c-alert__title {
@@ -29,6 +30,7 @@ p.instruction {
 
 h1#kc-page-title {
     margin-top: 10px;
+    color: #fff;
 }
 
 #kc-locale ul {
@@ -497,6 +499,8 @@ ul#kc-totp-supported-apps {
     max-width: 500px;
     border-top: 4px solid;
     border-color: var(--pf-global--primary-color--100);
+    background-color: #133b4d;
+    border-radius: 20px;
 }
 
 /*phone*/
@@ -508,6 +512,8 @@ ul#kc-totp-supported-apps {
         padding-top: 0;
         border-top: 0;
         box-shadow: 0 0;
+        background-color: #133b4d;
+        border-radius: 20px;
     }
 
     .kc-social-grid {
